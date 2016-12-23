@@ -28,7 +28,7 @@ namespace pocketmine\network\query;
 use pocketmine\Server;
 use pocketmine\utils\Binary;
 use pocketmine\utils\Utils;
-
+use pocketmine\utils\TextFormat;
 class QueryHandler{
 	private $server, $lastToken, $token, $longData, $shortData, $timeout;
 
@@ -37,7 +37,7 @@ class QueryHandler{
 
 	public function __construct(){
 		$this->server = Server::getInstance();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.start"));
+		//$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.start"));
 		$addr = ($ip = $this->server->getIp()) != "" ? $ip : "0.0.0.0";
 		$port = $this->server->getPort();
 		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.info", [$port]));
@@ -53,7 +53,7 @@ class QueryHandler{
 		$this->regenerateToken();
 		$this->lastToken = $this->token;
 		$this->regenerateInfo();
-		$this->server->getLogger()->info($this->server->getLanguage()->translateString("pocketmine.server.query.running", [$addr, $port]));
+		$this->server->getLogger()->info(TextFormat::BLUE."Everything seems to be good. Server started on Port: $port & IP: $addr");
 	}
 
 	public function regenerateInfo(){
