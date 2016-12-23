@@ -11,7 +11,6 @@
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
  *
  * @author PocketMine Team
  * @link http://www.pocketmine.net/
@@ -1689,8 +1688,8 @@ class Server{
 			$this->version = $version;
 			$code = $this->getCodename();
 		    $api = $this->getApiVersion();
-			$ip = "0.0.0.0";
-			$port = "19132";
+			$ip = $this->getIP();
+			$port = $this->getPort();
 			$proxy = $this->isProxyEnabled();
 			$ssl = $this->isExtensionInstalled("OpenSSL");
 			$mode = $this->checkAuthentication();
@@ -1821,7 +1820,7 @@ class Server{
 			$this->scheduler = new ServerScheduler();
 
 			if($this->getConfigBoolean("enable-rcon", false) === true){
-				$this->rcon = new RCON($this, $this->getConfigString("rcon.password", ""), $this->getConfigInt("rcon.port", $this->getPort()), ($ip = $this->getIp()) != "" ? $ip : "0.0.0.0", $this->getConfigInt("rcon.threads", 1), $this->getConfigInt("rcon.clients-per-thread", 50));
+				$this->rcon = new RCON($this, $this->getConfigString("rcon.password", ""), $this->getConfigInt("rcon.port", $this->\), ($ip = $this->getIp()) != "" ? $ip : "0.0.0.0", $this->getConfigInt("rcon.threads", 1), $this->getConfigInt("rcon.clients-per-thread", 50));
 			}
 
 			$this->entityMetadata = new EntityMetadataStore();
@@ -1859,7 +1858,6 @@ class Server{
 				@cli_set_process_title($this->getName() . " " . $this->getPocketMineVersion());
 			}
 
-			$this->logger->info(TextFormat::BLUE." Everything seems to be 'okay'. Server started!");
 			$this->serverID = Utils::getMachineUniqueId($this->getIp() . $this->getPort());
 
 			$this->getLogger()->debug("Server unique id: " . $this->getServerUniqueId());
